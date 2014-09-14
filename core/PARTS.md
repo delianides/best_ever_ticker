@@ -1,6 +1,14 @@
-Best Ever Ticker
+##Best Ever Ticker
 
-DigiKey Parts
+Here's a list of the parts used and an overview for how everything was put
+together.  I'm not an electrical engineer but everything here should be pretty
+safe. There are things you could forgo (battery) if you decided you wanted a
+static project that doesn't move.
+
+
+
+####DigiKey Parts
+
 - [Female Connectors](http://www.digikey.com/scripts/DkSearch/dksus.dll?Detail&itemSeq=157214243&uq=635461202887300706)
 - [Terminal Connection](http://www.digikey.com/scripts/DkSearch/dksus.dll?Detail&itemSeq=157214495&uq=635462139762490500)
 - [Terminal Block](http://www.digikey.com/scripts/DkSearch/dksus.dll?Detail&itemSeq=157215420&uq=635462139762490500)
