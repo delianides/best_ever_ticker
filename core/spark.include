@@ -1,0 +1,8 @@
+firmware/Adafruit_GFX.cpp
+firmware/Adafruit_GFX.h
+firmware/gamma.c
+firmware/gamma.h
+firmware/glcdfont.c
+firmware/neomatrix.cpp
+firmware/neopixel.h
+firmware/neopixel.cpp
