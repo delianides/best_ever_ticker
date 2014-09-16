@@ -33,6 +33,8 @@
 #include "neomatrix.h"
 #include "gamma.h"
 
+#define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+
 // Constructor for single matrix:
 Adafruit_NeoMatrix::Adafruit_NeoMatrix(int w, int h, uint8_t pin,
   uint8_t matrixType, uint8_t ledType) : Adafruit_GFX(w, h),

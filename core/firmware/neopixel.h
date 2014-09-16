@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   Spark Core library to control WS2811/WS2812 based RGB
   LED devices such as Adafruit NeoPixel strips.
-  Currently handles 800 KHz and 400kHz bitstream on Spark Core, 
+  Currently handles 800 KHz and 400kHz bitstream on Spark Core,
   WS2812, WS2812B and WS2811.
 
   Also supports Radio Shack Tri-Color Strip with TM1803 controller
@@ -15,8 +15,8 @@
   please support Adafruit and open-source hardware by purchasing products
   from Adafruit!
   --------------------------------------------------------------------*/
-  
-/* ======================= Adafruit_NeoPixel.h ======================= */  
+
+/* ======================= Adafruit_NeoPixel.h ======================= */
 /*--------------------------------------------------------------------
   This file is part of the Adafruit NeoPixel library.
 
@@ -34,7 +34,7 @@
   License along with NeoPixel.  If not, see
   <http://www.gnu.org/licenses/>.
   --------------------------------------------------------------------*/
-  
+
 #ifndef SPARK_NEOPIXEL_H
 #define SPARK_NEOPIXEL_H
 
@@ -45,7 +45,7 @@
 #define WS2812B  0x02 // 800 KHz datastream (NeoPixel)
 #define WS2811   0x00 // 400 KHz datastream (NeoPixel)
 #define TM1803   0x03 // 400 KHz datastream (Radio Shack Tri-Color Strip)
-  
+
 class Adafruit_NeoPixel {
 
  public:

@@ -15,7 +15,7 @@
   License along with NeoMatrix.  If not, see
   <http://www.gnu.org/licenses/>.
   --------------------------------------------------------------------*/
-
+#pragma once
 #ifndef SPARK_NEOMATRIX_H
 #define SPARK_NEOMATRIX_H
 

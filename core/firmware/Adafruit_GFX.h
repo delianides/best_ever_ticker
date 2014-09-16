@@ -1,7 +1,8 @@
 #ifndef _ADAFRUIT_GFX_H
 #define _ADAFRUIT_GFX_H
 
-#include "application.h"
+#include "spark_wiring.h"
+#include "spark_wiring_print.h"
 
 #define swap(a, b) { int16_t t = a; a = b; b = t; }
 
@@ -52,11 +53,7 @@ class Adafruit_GFX : public Print {
     setTextWrap(boolean w),
     setRotation(uint8_t r);
 
-#if ARDUINO >= 100
   virtual size_t write(uint8_t);
-#else
-  virtual void   write(uint8_t);
-#endif
 
   int16_t
     height(void),
