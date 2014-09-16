@@ -1,5 +1,4 @@
 firmware/Adafruit_GFX.cpp
-ticker.ino
 firmware/Adafruit_GFX.h
 firmware/glcdfont.c
 firmware/gamma.h
@@ -7,3 +6,4 @@ firmware/neomatrix.cpp
 firmware/neomatrix.h
 firmware/neopixel.h
 firmware/neopixel.cpp
+ticker.ino
