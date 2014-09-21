@@ -9,8 +9,8 @@ static project that doesn't move.
 
 ####DigiKey Parts
 
-- [Female Connectors](http://www.digikey.com/scripts/DkSearch/dksus.dll?Detail&itemSeq=157214243&uq=635461202887300706)
-- [Terminal Connection](http://www.digikey.com/scripts/DkSearch/dksus.dll?Detail&itemSeq=157214495&uq=635462139762490500)
+- [Female Connectors](http://www.digikey.com/product-detail/en/1778638/277-2309-1-ND/2625579)
+- [Terminal Connection](http://www.digikey.com/product-search/en?KeyWords=277-2323-ND)
 - [Terminal Block](http://www.digikey.com/scripts/DkSearch/dksus.dll?Detail&itemSeq=157215420&uq=635462139762490500)
 - [IC Bus Transceiver 20DIP](http://www.digikey.com/scripts/DkSearch/dksus.dll?Detail&itemSeq=157215869&uq=635462139762490500)
 - [IC BUX TRI-ST QD 14DIP](http://www.digikey.com/scripts/DkSearch/dksus.dll?Detail&itemSeq=157266850&uq=635462139762490500)
