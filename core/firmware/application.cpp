@@ -72,18 +72,21 @@
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 
+//I don't need WIFI right now
+SYSTEM_MODE(MANUAL);
+
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8,8,4,1, PIXEL_PIN,
   NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE,
   PIXEL_TYPE);
 
-const uint16_t colors[] = {
-  matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) };
+//const uint16_t colors[] = {
+//  matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) };
 
 void setup() {
   matrix.begin();
   matrix.setTextWrap(false);
-  matrix.setBrightness(40);
-  matrix.setTextColor(colors[0]);
+  matrix.setBrightness(30);
+  matrix.setTextColor(matrix.Color(80,255,0));
 }
 
 int x    = matrix.width();
@@ -91,14 +94,13 @@ int pass = 0;
 
 void loop() {
   matrix.fillScreen(0);
-  matrix.setCursor(x, 0);
+  matrix.setCursor(0, 0);
   matrix.print(F("291015"));
-  matrix.setTextColor(colors[pass]);
-  if(--x < -36) {
-    x = matrix.width();
-    if(++pass >= 3) pass = 0;
-    matrix.setTextColor(colors[pass]);
-  }
+  //if(--x < -36) {
+  //  x = matrix.width();
+  //  if(++pass >= 3) pass = 0;
+  //  matrix.setTextColor(colors[pass]);
+  //}
   matrix.show();
   delay(100);
 }
