@@ -20,7 +20,6 @@
 #define SPARK_NEOMATRIX_H
 
 #include "application.h"
-
 #include "adafruit_gfx.h"
 #include "neopixel.h"
 

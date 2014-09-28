@@ -36,9 +36,7 @@
 
 #include "application.h"
 //#include "spark_disable_wlan.h" (for faster local debugging only)
-#include "neopixel.h"
 #include "neomatrix.h"
-#include "adafruit_gfx.h"
 
 /* ======================= prototypes =============================== */
 

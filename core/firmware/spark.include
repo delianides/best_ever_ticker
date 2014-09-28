@@ -1,5 +1,6 @@
 libraries/adafruit_gfx.cpp
 libraries/adafruit_gfx.h
+libraries/glcdfont55.c
 libraries/glcdfont.c
 libraries/gamma.h
 libraries/neomatrix.cpp

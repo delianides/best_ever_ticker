@@ -29,11 +29,13 @@
   <http://www.gnu.org/licenses/>.
   -------------------------------------------------------------------------*/
 
-#include "neopixel.h"
 #include "neomatrix.h"
 #include "gamma.h"
-
-#define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+#ifdef __AVR__
+ #include <avr/pgmspace.h>
+#else
+ #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+#endif
 
 // Constructor for single matrix:
 Adafruit_NeoMatrix::Adafruit_NeoMatrix(int w, int h, uint8_t pin,
