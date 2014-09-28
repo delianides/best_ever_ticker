@@ -1,6 +1,14 @@
 #ifndef _GAMMA_H_
 #define _GAMMA_H_
 
+#ifdef __AVR
+ #include <avr/pgmspace.h>
+#else
+ #ifndef PROGMEM
+  #define PROGMEM
+ #endif
+#endif
+
 static const uint8_t PROGMEM
   gamma5[] = {
     0x00,0x01,0x02,0x03,0x05,0x07,0x09,0x0b,
