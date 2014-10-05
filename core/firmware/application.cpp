@@ -75,7 +75,7 @@
 //I don't need WIFI right now
 SYSTEM_MODE(MANUAL);
 
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8,8,4,1, PIXEL_PIN,
+Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8,8,5,1, PIXEL_PIN,
   NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE,
   PIXEL_TYPE);
 
