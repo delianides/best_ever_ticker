@@ -53,6 +53,7 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8,8,5,1, PIXEL_PIN,
   PIXEL_TYPE);
 
 void setup() {
+  //Wifi will be disabled at this point
   matrix.begin();
   matrix.setTextWrap(false);
   matrix.setBrightness(30);
@@ -70,6 +71,7 @@ void setup() {
     matrix.show();
   }
 
+  //Enable Wifi
   Spark.function("celebrate", setSalvationCount);
 }
 
@@ -78,10 +80,14 @@ void loop() {
 }
 
 int setSalvationCount(String count){
+  //Convert count string to integer.
+  int salvations = atoi(count.c_str());;
   matrix.fillScreen(0);
   matrix.setCursor(0,0);
-  matrix.print(F(count));
+  matrix.print(F(100));
   matrix.show();
-  return 1;
+
+  //Restful function returns count
+  return salvations;
 }
 
