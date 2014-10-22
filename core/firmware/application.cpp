@@ -155,6 +155,5 @@ void missingWifi(){
 
 void lowBattery(){
   //light pixel for low battery
-
 }
 
