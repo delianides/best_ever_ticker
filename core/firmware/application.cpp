@@ -38,38 +38,55 @@
 //#include "spark_disable_wlan.h" (for faster local debugging only)
 #include "neomatrix.h"
 
+#include "flashee-eeprom.h"
+using namespace Flashee;
+
 // IMPORTANT: Set pixel COUNT, PIN and TYPE
 #define PIXEL_PIN D2
 #define PIXEL_TYPE WS2812B
 
 //I don't need WIFI right now
-//SYSTEM_MODE(MANUAL);
+SYSTEM_MODE(SEMI_AUTOMATIC);
 
+//Definition for extra functions
 int setSalvationCount(String count);
+int countDigits(int digits);
 
-
+//Define Matrix
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8,8,5,1, PIXEL_PIN,
-  NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE,
-  PIXEL_TYPE);
+ NEO_TILE_TOP   + NEO_TILE_LEFT   + NEO_TILE_ROWS   + NEO_TILE_PROGRESSIVE +
+ NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE
+);
 
 void setup() {
+  //Initalize the reader
+  FlashDevice* device = Devices::createWearLevelErase();
+  FlashReader reader(device);
+
+  Serial.begin(9600);  // open serial over TX and RX pins
+
+  Serial.println("Starting setup....");
   //Wifi will be disabled at this point
   matrix.begin();
   matrix.setTextWrap(false);
   matrix.setBrightness(30);
   matrix.setTextColor(matrix.Color(80,255,0));
   matrix.fillScreen(0);
-  matrix.setCursor(0,0);
 
-  int addr = 1;
-  int value = EEPROM.read(addr);
+  int value = reader.readInt();
+
   if(value){
+    int digits = countDigits(value);
+    matrix.setCursor(41-(digits*6),0);
     matrix.print(F(value));
     matrix.show();
   }else{
-    matrix.print(F("999999"));
+    matrix.print(F("******"));
     matrix.show();
   }
+
+  //After everything has been setup, connect to wifi....
+  Spark.connect();
 
   //Enable Wifi
   Spark.function("celebrate", setSalvationCount);
@@ -81,13 +98,63 @@ void loop() {
 
 int setSalvationCount(String count){
   //Convert count string to integer.
-  int salvations = atoi(count.c_str());;
+  int salvations = atoi(count.c_str());
+
+  //Initalize the flash device for saving the new number
+  FlashDevice* device = Devices::createWearLevelErase();
+  FlashWriter writer(device);
+  writer.writeInt(salvations);
+
+  //Output Serial for debug
+  Serial.print("Salvations: ");
+  Serial.println(salvations);
+
+  //Initalize Digits
+  int digits = 1;
+  //Random number to increment by so it doesn't seem so neat.
+  int flux = rand() % 30 + 50;
+
+  //Loop through a counter until it reaches salvations
+  for(int c = 0; c <= salvations; c = c + flux){
+    Serial.print("Count: ");
+    Serial.println(c);
+    matrix.fillScreen(0);
+    digits = countDigits(c);
+    matrix.setCursor(41-(digits*6),0);
+    matrix.print(F(c));
+    matrix.show();
+    flux = rand() % 30 + 200;
+    delay(35);
+  }
+
+  //This is to make sure that the ticker ends up on the right number
+  //Everything is happening really fast no one would be able to see this
   matrix.fillScreen(0);
-  matrix.setCursor(0,0);
-  matrix.print(F(100));
+  digits = countDigits(salvations);
+  matrix.setCursor(41-(digits*6),0);
+  matrix.print(F(salvations));
   matrix.show();
 
   //Restful function returns count
   return salvations;
+}
+
+//Helper function to count the number of digits in an int
+int countDigits(int number){
+  int digits = 0;
+  while (number){
+    number /= 10;
+    digits++;
+  }
+  return digits;
+}
+
+void missingWifi(){
+  //light pixel for no wifi
+}
+
+void lowBattery(){
+  //light pixel for low battery
+
 }
 
