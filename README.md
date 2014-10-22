@@ -7,7 +7,8 @@ October is pastor appreciation month. Our pastor leads us with a servants heart
 and is constantly looking toward Jesus for our Next Steps as a church. [Perry Noble](http://perrynoble.com) is our pastor. He and NewSpring Church
 have a goal to reach 100,000 people in the state of South Carolina by 2020. So
 what could we do that shows him the appreciation we have for his vision
-and his leadership? What could we do that shows *this is from the web team*?
+and his leadership? That shows we are thankful that we "get to" do what we love
+everyday? What could we do that shows *this is from the web team*?
 
 I begin thinking about this earlier in the year (2014). The idea ended up being pretty
 simple. We know *"Every name has a **number** and every **number** has a story and every
@@ -25,9 +26,10 @@ five 8x8 NeoPixel Matrices from Adafruit. It uses a small battery charger and
 controller as well as a 2200mhA battery to power itself even when it isn't
 plugged in.
 
-It pulls the data from [Churchmetrics](http://churchmetrics.com) and stores them
-in a small Meteor app. The app will query CM infrequently and them push the data
-to the ticker when it sees the data is out of date.
+It pulls the data from [Churchmetrics](http://churchmetrics.com) and stores it
+in a small [Meteor](https://meteor.com) app. The app keeps track of all the data
+and pushes a number to the ticker when it detects that the number may be out of
+date. 
 
 The Future
 ----------
