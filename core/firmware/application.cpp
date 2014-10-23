@@ -50,6 +50,7 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 
 //Definition for extra functions
 int setSalvationCount(String count);
+void printSalvation(int salvations);
 int countDigits(int digits);
 
 //Define Matrix
@@ -73,27 +74,26 @@ void setup() {
   matrix.setTextColor(matrix.Color(80,255,0));
   matrix.fillScreen(0);
 
-  int value = reader.readInt();
+  int salvations = reader.readInt();
 
-  if(value){
-    int digits = countDigits(value);
-    matrix.setCursor(41-(digits*6),0);
-    matrix.print(F(value));
-    matrix.show();
+  if(salvations){
+    printSalvation(salvations);
   }else{
     matrix.print(F("******"));
     matrix.show();
   }
 
-  //After everything has been setup, connect to wifi....
-  Spark.connect();
-
-  //Enable Wifi
-  Spark.function("celebrate", setSalvationCount);
+  if ( Spark.connected() == false){
+    Spark.connect();
+  }
 }
 
 void loop() {
-
+  if ( Spark.connected() == true){
+    //Enable Wifi
+    Spark.publish("ticker-connected");
+    Spark.function("celebrate", setSalvationCount);
+  }
 }
 
 int setSalvationCount(String count){
@@ -109,11 +109,17 @@ int setSalvationCount(String count){
   Serial.print("Salvations: ");
   Serial.println(salvations);
 
+  printSalvation(salvations);
+
+  //Restful function returns count
+  return salvations;
+}
+
+void printSalvation(int salvations){
   //Initalize Digits
   int digits = 1;
   //Random number to increment by so it doesn't seem so neat.
   int flux = rand() % 30 + 50;
-
   //Loop through a counter until it reaches salvations
   for(int c = 0; c <= salvations; c = c + flux){
     Serial.print("Count: ");
@@ -127,16 +133,13 @@ int setSalvationCount(String count){
     delay(35);
   }
 
-  //This is to make sure that the ticker ends up on the right number
-  //Everything is happening really fast no one would be able to see this
   matrix.fillScreen(0);
   digits = countDigits(salvations);
   matrix.setCursor(41-(digits*6),0);
   matrix.print(F(salvations));
   matrix.show();
 
-  //Restful function returns count
-  return salvations;
+  return;
 }
 
 //Helper function to count the number of digits in an int
@@ -149,11 +152,11 @@ int countDigits(int number){
   return digits;
 }
 
-void missingWifi(){
-  //light pixel for no wifi
-}
-
-void lowBattery(){
-  //light pixel for low battery
-}
+// void missingWifi(){
+//   //light pixel for no wifi
+// }
+//
+// void lowBattery(){
+//   //light pixel for low battery
+// }
 
