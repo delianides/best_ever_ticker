@@ -41,13 +41,10 @@ using namespace Flashee;
 
 // IMPORTANT: Set pixel COUNT, PIN and TYPE
 #define PIXEL_PIN D2
-#define PIXEL_TYPE WS2812B
 
 //I don't need WIFI right now
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
-//Definition for extra functions
-//
 //RESTful function for receiving data
 int setSalvations(String count);
 
@@ -65,18 +62,18 @@ void lowBattery();
 
 //Define Matrix
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8,8,5,1, PIXEL_PIN,
-    NEO_TILE_TOP   + NEO_TILE_LEFT   + NEO_TILE_ROWS   + NEO_TILE_PROGRESSIVE +
-    NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE
-    );
+  NEO_TILE_TOP   + NEO_TILE_LEFT   + NEO_TILE_ROWS   + NEO_TILE_PROGRESSIVE +
+  NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE
+);
 
 void setup() {
   //Initalize the reader
   FlashDevice* device = Devices::createWearLevelErase();
   FlashReader reader(device);
 
-  Serial.begin(9600);  // open serial over TX and RX pins
-
+  Serial.begin(9600);
   Serial.println("Starting setup....");
+
   //Wifi will be disabled at this point
   matrix.begin();
   matrix.setTextWrap(false);
@@ -84,15 +81,18 @@ void setup() {
   matrix.setTextColor(matrix.Color(80,255,0));
   matrix.fillScreen(0);
 
+  //We're not connected to WIFI just yet but we need a number to show
   int salvations = reader.readInt();
 
-  if(salvations){
+  //Show salvations unless something isn't stored in memory.
+  if(salvations >= 0){
     showSalvations(salvations, 0);
   }else{
     matrix.print(F("******"));
     matrix.show();
   }
 
+  //Now that everything is done and being shown, lets quietly connect to wifi.
   if ( Spark.connected() == false){
     Spark.connect();
   }
@@ -100,10 +100,12 @@ void setup() {
 
 void loop() {
   if ( Spark.connected() == true){
-    //Enable Wifi
+    //let the web know we are alive!
     Spark.publish("ticker-connected");
+    //Make sure the function is registered
     Spark.function("celebrate", setSalvations);
   }else{
+    //No wifi?
     missingWifi();
   }
 
@@ -176,11 +178,13 @@ int countDigits(int number){
   return digits;
 }
 
+//Show YELLOW LED if no WIFI.
 void missingWifi(){
   matrix.drawPixel(1,8,matrix.Color(255,255,35));
   matrix.show();
 }
 
+//Show RED LED if low battery.
 void lowBattery(){
   matrix.drawPixel(0,8,matrix.Color(255,70,0));
   matrix.show();
