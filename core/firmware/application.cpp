@@ -51,6 +51,9 @@ int setSalvations(String count);
 //Print Salvations
 void showSalvations(int salvations, int oldSalvations);
 
+//Clear Salvations
+int clearSalvations(String reset);
+
 //Helper function to count the number of digits so the cursor moves.
 int countDigits(int digits);
 
@@ -104,9 +107,11 @@ void loop() {
     Spark.publish("ticker-connected");
     //Make sure the function is registered
     Spark.function("celebrate", setSalvations);
-  }else{
-    //No wifi?
-    missingWifi();
+    Spark.function("reset", clearSalvations);
+
+    //Incase the no wifi pixel is showing
+    matrix.setPixelColor(57,0,0,0);
+    matrix.show();
   }
 
   //Read analog input for battery life.
@@ -123,6 +128,11 @@ int setSalvations(String count){
   FlashReader reader(device);
   int oldSalvations = reader.readInt();
 
+  //If the new number is less than the old number there's likely an error.
+  if( salvations < oldSalvations ){
+    return -1;
+  }
+
   //Write the new number.
   FlashWriter writer(device);
   writer.writeInt(salvations);
@@ -136,6 +146,21 @@ int setSalvations(String count){
 
   //Restful function returns count
   return salvations;
+}
+
+int clearSalvations(String reset){
+  if (reset != "please"){
+    return -1;
+  }else{
+    FlashDevice* device = Devices::createWearLevelErase();
+    FlashWriter writer(device);
+
+    writer.writeInt(1);
+
+    //This funcation is expecting a string
+    setSalvations("1");
+    return 1;
+  }
 }
 
 void showSalvations(int salvations, int oldSalvations){
@@ -180,13 +205,13 @@ int countDigits(int number){
 
 //Show YELLOW LED if no WIFI.
 void missingWifi(){
-  matrix.drawPixel(1,8,matrix.Color(255,255,35));
+  matrix.setPixelColor(57,255,255,0);
   matrix.show();
 }
 
 //Show RED LED if low battery.
 void lowBattery(){
-  matrix.drawPixel(0,8,matrix.Color(255,70,0));
+  matrix.setPixelColor(56,255,0,0);
   matrix.show();
 }
 
