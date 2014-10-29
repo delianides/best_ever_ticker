@@ -41,7 +41,6 @@ using namespace Flashee;
 
 // IMPORTANT: Set pixel COUNT, PIN and TYPE
 #define PIXEL_PIN D2
-#define BATTERY_PIN D4
 
 //I don't need WIFI right now
 SYSTEM_MODE(SEMI_AUTOMATIC);
@@ -70,6 +69,8 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8,8,5,1, PIXEL_PIN,
   NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE
 );
 
+int batteryPin = D6;
+
 void setup() {
   //Initalize the reader
   FlashDevice* device = Devices::createWearLevelErase();
@@ -96,7 +97,7 @@ void setup() {
     matrix.show();
   }
 
-  pinMode(BATTERY_PIN, INPUT_PULLUP);
+  pinMode(batteryPin, INPUT_PULLUP);
 
   //Now that everything is done and being shown, lets quietly connect to wifi.
   if ( Spark.connected() == false){
@@ -126,12 +127,15 @@ void loop() {
   }
 
   //Read low battery pin
-  if(digitalRead(BATTERY_PIN) == HIGH){
+  if(digitalRead(batteryPin) == LOW){
     lowBattery();
   }else{
-    matrixj.setPixelColor(56,0,0,0);
+    matrix.setPixelColor(56,0,0,0);
     matrix.show();
   }
+
+  //Wait 5 minutes before checking again.
+  // delay(300000);
 }
 
 int setSalvations(String count){
@@ -226,9 +230,9 @@ void missingWifi(){
   matrix.show();
 }
 
-//Show RED LED if low battery.
+//Show BLUE LED if low battery.
 void lowBattery(){
-  matrix.setPixelColor(56,255,0,0);
+  matrix.setPixelColor(56,100,0,0);
   matrix.show();
 }
 
