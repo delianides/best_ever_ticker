@@ -120,9 +120,6 @@ void loop() {
     if ( WiFi.connecting() == false){
       //Light UP missing wifi LED
       missingWifi();
-
-      //Set CC3000 into listening mode
-      WiFi.listen();
     }
   }
 
@@ -226,7 +223,7 @@ int countDigits(int number){
 
 //Show YELLOW LED if no WIFI.
 void missingWifi(){
-  matrix.setPixelColor(57,255,255,0);
+  matrix.setPixelColor(57,0,0,255);
   matrix.show();
 }
 
